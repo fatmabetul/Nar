@@ -1,6 +1,39 @@
 <html>
 	<head>
-		<script src="binary_search.js"></script>
+		<script>
+			function start_anim() {
+
+				//function to get the array of random integers
+				//N is the size of the array
+				function getRandomArray(N) {
+					var a = new Array(N);
+					var MAX_NUM = 100; //upper bound of the random generator
+					var isGenerated = new Array(100); //mark if the number is already generated, to avoid duplication
+
+					//initialize isGenerated
+					for(var i=0; i<MAX_NUM; i++) isGenerated[i] = false;
+
+					for(var i=0; i<N; i++) {
+						var num;
+						do {
+							num = Math.floor(Math.random()*MAX_NUM);
+						} while(isGenerated[num]);
+						isGenerated[num] = true;
+						a[i] = num;			
+					}
+
+					return a;
+				}
+
+				var canvas = document.getElementById("cvs");
+				var c = canvas.getContext("2d");
+				var NUM_ELEMENT = 10; //the total number generated;
+				var numbers = getRandomArray(NUM_ELEMENT);
+				numbers.sort(function(x, y){return x-y}); //sort array in ascending order
+
+				console.log(numbers);
+			}
+		</script>
 	</head>
 	<body onLoad="start_anim()">
 		<canvas id="cvs" width=800 height=600></canvas>
