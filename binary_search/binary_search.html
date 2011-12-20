@@ -25,13 +25,31 @@
 					return a;
 				}
 
+				function printNumbers(numbers) {
+					var strnum = "";
+
+					for(var i=0; i<numbers.length; i++) {
+						if (i == 0) {
+							strnum += numbers[i].toString();
+						}
+						else {
+							strnum += " " + numbers[i].toString();
+						}
+					}
+
+					//define font size and type
+					c.font = "40pt Calibri";
+					c.textAlign = "center";
+					c.fillText(strnum, canvas.width/2, canvas.height/2);
+				}
+
 				var canvas = document.getElementById("cvs");
 				var c = canvas.getContext("2d");
 				var NUM_ELEMENT = 10; //the total number generated;
 				var numbers = getRandomArray(NUM_ELEMENT);
 				numbers.sort(function(x, y){return x-y}); //sort array in ascending order
 
-				console.log(numbers);
+				printNumbers(numbers);
 			}
 		</script>
 	</head>
