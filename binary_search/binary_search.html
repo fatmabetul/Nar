@@ -26,27 +26,44 @@
 				}
 
 				function printNumbers(numbers) {
-					var strnum = "";
+					var x;
+					var l = 0;
+
+					c.font = "40pt Calibri";
 
 					for(var i=0; i<numbers.length; i++) {
-						if (i == 0) {
-							strnum += numbers[i].toString();
-						}
-						else {
-							strnum += " " + numbers[i].toString();
-						}
+						if (numbers[i] < 10) l+=27;
+						else l+=54;
 					}
+					l += 9*15;
+					x = Math.floor((canvas.width - l) / 2);
 
-					//define font size and type
-					c.font = "40pt Calibri";
-					c.textAlign = "center";
-					c.fillText(strnum, canvas.width/2, canvas.height/2);
+					for(var i=0; i<numbers.length; i++) {
+						x_numbers[i] = x;
+						c.fillText(numbers[i].toString(), x, canvas.height/2);
+						
+						if (c.measureText(numbers[i].toString()).width == 27) x += 27;
+						else x+=54;
+						x += 15;
+					}
 				}
 
 				var canvas = document.getElementById("cvs");
 				var c = canvas.getContext("2d");
 				var NUM_ELEMENT = 10; //the total number generated;
 				var numbers = getRandomArray(NUM_ELEMENT);
+
+				/*
+					array x_numbers below stores the x-coordinate for each number
+					you can use it to re-draw the number with different color
+
+					example :
+					c.font = "40pt Calibri";
+					c.fillStyle = "#0000ff"; //blue color
+					c.fillText(numbers[i].toString(), x_numbers[i], canvas.height/2);
+				*/
+				var x_numbers = new Array(10);
+
 				numbers.sort(function(x, y){return x-y}); //sort array in ascending order
 
 				printNumbers(numbers);
